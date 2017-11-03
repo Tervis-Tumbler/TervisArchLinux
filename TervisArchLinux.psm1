@@ -31,6 +31,8 @@ systemctl start systemd-networkd
 systemctl enable systemd-networkd
 vi /etc/resolv.conf
 pacman -S openssh
+#Note: After installation it is recommended to harden SSH. The first step would be to remove PermitRootLogin yes from /etc/ssh/sshd_config.
+vi /etc/ssh/sshd_config
 systemctl start sshd.socket
 systemctl enable sshd.socket
 "@
