@@ -31,6 +31,7 @@ systemctl start systemd-networkd
 systemctl enable systemd-networkd
 vi /etc/resolv.conf
 pacman -S openssh
+
 #Note: After installation it is recommended to harden SSH. The first step would be to remove PermitRootLogin yes from /etc/ssh/sshd_config.
 vi /etc/ssh/sshd_config
 systemctl start sshd.socket
@@ -42,7 +43,18 @@ function Install-AURPackageWithoutHelper {
         [Parameter(Mandatory,ValueFromPipeline)]$Node,
         $SnapshotURL
     )
-    
+    $PackageName = "aura-bin"
+    $Node | Add-SSHSessionCustomProperty -UseIPAddress
+$Command = @"
+cd /tmp
+curl -L -O $SnapshotURL
+tar -xvf aura-bin.tar.gz
+cd aura-bin
+makepkg -si --noconfirm --needed --noprogressbar
+"@
+    Invoke-SSHCommand -Command "curl -L -O $SnapshotURL"
+
+    Invoke-SSHCommand -Command "makepkg -si"
 }
 
 function Install-AURAURA {
