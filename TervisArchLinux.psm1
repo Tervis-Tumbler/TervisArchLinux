@@ -39,7 +39,12 @@ systemctl enable sshd.socket
 
 function Install-AURPackageWithoutHelper {
     param(
-        $PackageName
+        [Parameter(Mandatory,ValueFromPipeline)]$Node,
+        $SnapshotURL
     )
     
+}
+
+function Install-AURAURA {
+    Install-AURPackageWithoutHelper -SnapshotURL https://aur.archlinux.org/cgit/aur.git/snapshot/aura-bin.tar.gz
 }
