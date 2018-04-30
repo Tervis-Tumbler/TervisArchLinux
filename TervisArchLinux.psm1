@@ -36,3 +36,10 @@ vi /etc/ssh/sshd_config
 systemctl start sshd.socket
 systemctl enable sshd.socket
 "@
+
+function Install-AURPackageWithoutHelper {
+    param(
+        $PackageName
+    )
+    
+}
